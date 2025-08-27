@@ -101,3 +101,57 @@ Configurar o arquivo package.json
 }
 ```
 
+## Configurando o ambiente
+
+Instalar as bibliotecas dotenv e zod
+- npm install dotenv zod
+
+Criar o arquivo .env.example na raiz
+```bash
+NODE_ENV=dev
+```
+
+Criar o arquivo .env na raiz e inserir no .gitignore
+```bash
+NODE_ENV=dev
+```
+
+Criar subpasta env na pasta src
+```bash
+mkdir src/env
+```
+
+Criar o arquivo index.ts na env
+```bash
+import "dotenv/config"
+import { z } from "zod";
+
+const envSchema = z.object({
+  NODE_ENV: z.enum(["dev", "test", "prod"]).default("dev"),
+  PORT: z.coerce.number().default(3333),
+})
+
+const _env = envSchema.safeParse(process.env)
+
+if (!_env.success) {
+  console.error("❌ Invalid environment variables", _env.error.format())
+
+  throw new Error("Invalid environment variables.")
+}
+
+
+export const env = _env.data
+```
+
+Atualizar o arquivo server.ts na
+```bash
+import { app } from "./app";
+import env = require("./env");
+
+app.listen({ 
+  port: env.PORT,
+  host: "0.0.0.0"
+}).then(() => {
+  console.log("🚀 HTTP Server running!");
+});
+```
