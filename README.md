@@ -281,3 +281,81 @@ Preferences Open User Settings(JSON)
 ```
 
 ---
+
+## Configurando banco de dados
+
+Comandos Docker
+
+Criar um container
+```bash
+docker run --name api-solid-pg -e POSTGRESQL_USERNAME=docker -e POSTGRESQL_PASSWORD=docker -e POSTGRESQL_DATABASE=apisolid -p 5432:5432 bitnami/postgresql
+```
+
+Iniciar um container
+```bash
+docker start id
+ou
+docker start name
+```
+
+Listar todos containers que estão rodando
+```bash
+docker ps
+```
+
+Ver logs container
+```bash
+docker logs name
+```
+
+Seguir logs container
+```bash
+docker logs name -f
+```
+
+Listar todos containers criados
+```bash
+docker ps -a
+```
+
+Parar um container
+```bash
+docker stop id
+ou
+docker stop name
+```
+
+Matar um container
+```bash
+docker down id
+ou
+docker down name
+```
+
+Configurar o arquivo .env
+```bash
+NODE_ENV=dev
+
+DATABASE_URL="postgres://docker:docker@localhost:5432/apisolid?schema=public"
+```
+
+Gerar migração
+```bash
+npx prisma generate
+```
+
+Aplicar migração
+```bash
+npx prisma migrate dev
+```
+? Enter a name for the new migration: »
+create users table
+
+
+Verificar migração
+```bash
+npx prisma studio
+```
+
+
+---
