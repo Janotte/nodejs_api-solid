@@ -13,7 +13,30 @@ model User {
   id        String   @id @default(uuid())
   name      String
   email     String   @unique
-  password  String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  password_hash  String
+  created_at DateTime @default(now())
+  checkIns CheckIn[]
+}
+
+model CheckIn {
+  @@map("check_ins")
+  id        String   @id @default(uuid())
+  gym_id     String
+  user_id    String
+  validate_at DateTime?
+  created_at DateTime @default(now())
+  user User @relation(fields: [user_id], references: [id])
+  gym Gym @relation(fields: [gym_id], references: [id])
+}
+
+model Gym {
+  @@map("gyms")
+  id        String   @id @default(uuid())
+  name      String
+  description String?
+  phone     String?
+  latitude  Decimal
+  longitude Decimal
+  created_at DateTime @default(now())
+  checkIns CheckIn[]
 }

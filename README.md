@@ -4,58 +4,66 @@ GymPass style app.
 
 ## RFs (Requitos funcionais)
 
-- [ ] Deve ser possível se cadastrar;
-- [ ] Deve ser possível se autenticar;
-- [ ] Deve ser possível obter o perfil de um usuário logado;
-- [ ] Deve ser possível obter quantidade de check-ins realizados pelo usuário logado;
-- [ ] Deve ser possível que o usuário obtenha seu histórico de check-ins;
-- [ ] Deve ser possível que o usuário busque academias próximas;
-- [ ] Deve ser possível que o usuário busque academia pelo nome;
-- [ ] Deve ser possível que o usuário faça check-in em uma academia;
-- [ ] Deve ser possível validar o check-in de um usuário;
-- [ ] Deve ser possível cadastrar uma academia;
+-   [ ] Deve ser possível se cadastrar;
+-   [ ] Deve ser possível se autenticar;
+-   [ ] Deve ser possível obter o perfil de um usuário logado;
+-   [ ] Deve ser possível obter quantidade de check-ins realizados pelo usuário logado;
+-   [ ] Deve ser possível que o usuário obtenha seu histórico de check-ins;
+-   [ ] Deve ser possível que o usuário busque academias próximas;
+-   [ ] Deve ser possível que o usuário busque academia pelo nome;
+-   [ ] Deve ser possível que o usuário faça check-in em uma academia;
+-   [ ] Deve ser possível validar o check-in de um usuário;
+-   [ ] Deve ser possível cadastrar uma academia;
 
 ## RNs (Regras de negócio)
 
-- [ ] O usuário não pode se cadastrar com um e-mail duplicado;
-- [ ] O usuário não pode fazer check-ins no mesmo dia;
-- [ ] O usuário não pode fazer check-in se não estiver a menos de 100mts da academia;
-- [ ] O check-in só pode ser validado até 20 minutos após criado;
-- [ ] O check-in só pode ser validade por administradores;
-- [ ] A academia só pode ser cadastrada por administradores;
+-   [ ] O usuário não pode se cadastrar com um e-mail duplicado;
+-   [ ] O usuário não pode fazer check-ins no mesmo dia;
+-   [ ] O usuário não pode fazer check-in se não estiver a menos de 100mts da academia;
+-   [ ] O check-in só pode ser validado até 20 minutos após criado;
+-   [ ] O check-in só pode ser validade por administradores;
+-   [ ] A academia só pode ser cadastrada por administradores;
 
 ## RNFs (Requisitos não funcionais)
 
-- [ ] A senha do usuária necessitam estar criptografada;
-- [ ] Os dados da aplicação precisam estar persistidos em um banco PostgreSQL;
-- [ ] Todas as listas de dados precisam estar paginadas com 20 itens por página;
-- [ ] O usuário deve ser identificado por um token JWT
+-   [ ] A senha do usuária necessitam estar criptografada;
+-   [ ] Os dados da aplicação precisam estar persistidos em um banco PostgreSQL;
+-   [ ] Todas as listas de dados precisam estar paginadas com 20 itens por página;
+-   [ ] O usuário deve ser identificado por um token JWT
 
 ## Criando projeto
+
 Inicializando projeto
-- npm init -y
+
+-   npm init -y
 
 Criar o arquivo .npmrc na pasta raiz para fixar versões
+
 ```bash
 save-exact=true
 ```
 
 Instalando dependencias
-- npm i typescript @types/node tsx tsup -D
+
+-   npm i typescript @types/node tsx tsup -D
 
 Inicializando typescript
-- npx tsc -init
+
+-   npx tsc -init
 
 Ajustar a versão do node no tsconfig.json
 "target": "es2020",
 
 Instalar o Fastify
-- npm install fastify
+
+-   npm install fastify
 
 Criar a pasta src
-- mkdir src
+
+-   mkdir src
 
 Criar o arquivo app.ts na pasta src
+
 ```bash
 import fastify from "fastify";
 
@@ -63,10 +71,11 @@ export const app = fastify();
 ```
 
 Criar o arquivo server.ts na pasta src
+
 ```bash
 import { app } from "./app";
 
-app.listen({ 
+app.listen({
   port: 3333,
   host: "0.0.0.0"
 }).then(() => {
@@ -75,6 +84,7 @@ app.listen({
 ```
 
 Configurar o arquivo package.json
+
 ```bash
 {
   "name": "03-api-solid",
@@ -104,24 +114,29 @@ Configurar o arquivo package.json
 ## Configurando o ambiente
 
 Instalar as bibliotecas dotenv e zod
-- npm install dotenv zod
+
+-   npm install dotenv zod
 
 Criar o arquivo .env.example na raiz
+
 ```bash
 NODE_ENV=dev
 ```
 
 Criar o arquivo .env na raiz e inserir no .gitignore
+
 ```bash
 NODE_ENV=dev
 ```
 
 Criar subpasta env na pasta src
+
 ```bash
 mkdir src/env
 ```
 
 Criar o arquivo index.ts na env
+
 ```bash
 import "dotenv/config"
 import { z } from "zod";
@@ -144,11 +159,12 @@ export const env = _env.data
 ```
 
 Atualizar o arquivo server.ts na
+
 ```bash
 import { app } from "./app";
 import { env } from "./env";
 
-app.listen({ 
+app.listen({
   port: env.PORT,
   host: "0.0.0.0"
 }).then(() => {
@@ -159,10 +175,12 @@ app.listen({
 ## Configurando o ESLint
 
 Instalar as bibliotecas
-- npm install eslint --save-dev
+
+-   npm install eslint --save-dev
 
 Gerar o arquivo de configuração
-- npx eslint --init
+
+-   npx eslint --init
 
 √ What do you want to lint? · javascript, json, md, css
 √ How would you like to use ESLint? · problems
@@ -181,6 +199,7 @@ eslint, @eslint/js, globals, typescript-eslint, @eslint/json, @eslint/markdown, 
 √ Which package manager do you want to use? · npm
 
 Configurar o arquivo eslint.config.mts
+
 ```bash
 import js from "@eslint/js";
 import globals from "globals";
@@ -200,6 +219,7 @@ export default defineConfig([
 ```
 
 Configurar o arquivo .eslintigmore
+
 ```bash
 node_modules
 dist
@@ -209,6 +229,7 @@ build
 ```
 
 Configurar o arquivo tsconfig.json
+
 ```bash
 {
   "compilerOptions": {
@@ -240,6 +261,7 @@ Configurar o arquivo tsconfig.json
 ```
 
 Criar um alias no arquivo `tsconfig.json`
+
 ```bash
 // Modules
 "baseUrl": "./",
@@ -247,26 +269,31 @@ Criar um alias no arquivo `tsconfig.json`
   "@/*": ["./src/*"]
 },
 ```
+
 ---
 
 ## Instalando Prisma
 
 Instalar a extensão do Prisma no editor
+
 ```txt
 Adds syntax highlighting, formatting, auto-completion, jump-to-definition and linting for .prisma files.
 ```
 
 Instalar bibliotecas para desenvolvimento
+
 ```bash
 npm install prisma --save-dev
 ```
 
 Instalar bibliotecas para produção
+
 ```bash
 npm install @prisma/client
 ```
 
 Inicializar o Prismas
+
 ```bash
 npx prisma init
 ```
@@ -274,9 +301,10 @@ npx prisma init
 Configurar a auto formação
 Ctrl + Shift + P
 Preferences Open User Settings(JSON)
+
 ```bash
 "[prisma]": {
-  "editor.formatOnSave": true 
+  "editor.formatOnSave": true
 }
 ```
 
@@ -287,11 +315,13 @@ Preferences Open User Settings(JSON)
 Comandos Docker
 
 Criar um container
+
 ```bash
 docker run --name api-solid-pg -e POSTGRESQL_USERNAME=docker -e POSTGRESQL_PASSWORD=docker -e POSTGRESQL_DATABASE=apisolid -p 5432:5432 bitnami/postgresql
 ```
 
 Iniciar um container
+
 ```bash
 docker start id
 ou
@@ -299,26 +329,31 @@ docker start name
 ```
 
 Listar todos containers que estão rodando
+
 ```bash
 docker ps
 ```
 
 Ver logs container
+
 ```bash
 docker logs name
 ```
 
 Seguir logs container
+
 ```bash
 docker logs name -f
 ```
 
 Listar todos containers criados
+
 ```bash
 docker ps -a
 ```
 
 Parar um container
+
 ```bash
 docker stop id
 ou
@@ -326,6 +361,7 @@ docker stop name
 ```
 
 Matar um container
+
 ```bash
 docker down id
 ou
@@ -333,6 +369,7 @@ docker down name
 ```
 
 Configurar o arquivo .env
+
 ```bash
 NODE_ENV=dev
 
@@ -340,22 +377,107 @@ DATABASE_URL="postgres://docker:docker@localhost:5432/apisolid?schema=public"
 ```
 
 Gerar migração
+
 ```bash
 npx prisma generate
 ```
 
 Aplicar migração
+
 ```bash
 npx prisma migrate dev
 ```
+
 ? Enter a name for the new migration: »
 create users table
 
-
 Verificar migração
+
 ```bash
 npx prisma studio
 ```
 
+Criar o arquivo docker-compose.yml
+
+```sh
+version: '3'
+
+services:
+  db:
+    image: bitnami/postgresql
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_USER: docker
+      POSTGRES_PASSWORD: docker
+      POSTGRES_DB: apisolid
+```
+
+Criar ou iniciar o container
+
+```sh
+docker compose up -d
+```
+
+Parar o container
+
+```sh
+docker compose stop
+```
+
+Apagar o container
+
+```sh
+docker compose down
+```
+
+Criando relacionamentos
+
+```sh
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  @@map("users")
+  id        String   @id @default(uuid())
+  name      String
+  email     String   @unique
+  password_hash  String
+  created_at DateTime @default(now())
+  checkIns CheckIn[]
+}
+
+model CheckIn {
+  @@map("check_ins")
+  id        String   @id @default(uuid())
+  gym_id     String
+  user_id    String
+  validate_at DateTime?
+  created_at DateTime @default(now())
+  user User @relation(fields: [user_id], references: [id])
+  gym Gym @relation(fields: [gym_id], references: [id])
+}
+
+model Gym {
+  @@map("gyms")
+  id        String   @id @default(uuid())
+  name      String
+  description String?
+  phone     String?
+  latitude  Decimal
+  longitude Decimal
+  created_at DateTime @default(now())
+  checkIns CheckIn[]
+}
+```
 
 ---
+
+## Criando relacionamentos
