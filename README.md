@@ -35,6 +35,11 @@ GymPass style app.
 Inicializando projeto
 - npm init -y
 
+Criar o arquivo .npmrc na pasta raiz para fixar versões
+```bash
+save-exact=true
+```
+
 Instalando dependencias
 - npm i typescript @types/node tsx tsup -D
 
@@ -95,3 +100,4 @@ Configurar o arquivo package.json
   }
 }
 ```
+
