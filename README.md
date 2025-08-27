@@ -238,3 +238,46 @@ Configurar o arquivo tsconfig.json
   }
 }
 ```
+
+Criar um alias no arquivo `tsconfig.json`
+```bash
+// Modules
+"baseUrl": "./",
+"paths": {
+  "@/*": ["./src/*"]
+},
+```
+---
+
+## Instalando Prisma
+
+Instalar a extensão do Prisma no editor
+```txt
+Adds syntax highlighting, formatting, auto-completion, jump-to-definition and linting for .prisma files.
+```
+
+Instalar bibliotecas para desenvolvimento
+```bash
+npm install prisma --save-dev
+```
+
+Instalar bibliotecas para produção
+```bash
+npm install @prisma/client
+```
+
+Inicializar o Prismas
+```bash
+npx prisma init
+```
+
+Configurar a auto formação
+Ctrl + Shift + P
+Preferences Open User Settings(JSON)
+```bash
+"[prisma]": {
+  "editor.formatOnSave": true 
+}
+```
+
+---
