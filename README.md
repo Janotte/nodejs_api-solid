@@ -146,7 +146,7 @@ export const env = _env.data
 Atualizar o arquivo server.ts na
 ```bash
 import { app } from "./app";
-import env = require("./env");
+import { env } from "./env";
 
 app.listen({ 
   port: env.PORT,
@@ -154,4 +154,87 @@ app.listen({
 }).then(() => {
   console.log("🚀 HTTP Server running!");
 });
+```
+
+## Configurando o ESLint
+
+Instalar as bibliotecas
+- npm install eslint --save-dev
+
+Gerar o arquivo de configuração
+- npx eslint --init
+
+√ What do you want to lint? · javascript, json, md, css
+√ How would you like to use ESLint? · problems
+√ What type of modules does your project use? · esm
+√ Which framework does your project use? · none
+√ Does your project use TypeScript? · No / Yes
+√ Where does your code run? · browser, node
+√ Which language do you want your configuration file be written in? · ts
+√ What flavor of Markdown do you want to lint? · commonmark
+Jiti is required for Node.js <24.3.0 to read TypeScript configuration files.
+√ Would you like to add Jiti as a devDependency? · No / Yes
+The config that you've selected requires the following dependencies:
+
+eslint, @eslint/js, globals, typescript-eslint, @eslint/json, @eslint/markdown, @eslint/css
+√ Would you like to install them now? · No / Yes
+√ Which package manager do you want to use? · npm
+
+Configurar o arquivo eslint.config.mts
+```bash
+import js from "@eslint/js";
+import globals from "globals";
+import tseslint from "typescript-eslint";
+import json from "@eslint/json";
+import markdown from "@eslint/markdown";
+import css from "@eslint/css";
+import { defineConfig } from "eslint/config";
+
+export default defineConfig([
+  { files: ["**/*.{js,mjs,cjs,ts,mts,cts}"], plugins: { js }, extends: ["js/recommended"], languageOptions: { globals: {...globals.browser, ...globals.node} } },
+  tseslint.configs.recommended,
+  { files: ["**/*.json"], plugins: { json }, language: "json/json", extends: ["json/recommended"] },
+  { files: ["**/*.md"], plugins: { markdown }, language: "markdown/commonmark", extends: ["markdown/recommended"] },
+  { files: ["**/*.css"], plugins: { css }, language: "css/css", extends: ["css/recommended"] },
+]);
+```
+
+Configurar o arquivo .eslintigmore
+```bash
+node_modules
+dist
+build
+.env
+.env.*
+```
+
+Configurar o arquivo tsconfig.json
+```bash
+{
+  "compilerOptions": {
+    "module": "nodenext",
+    "target": "es2020",
+    "types": [],
+
+    // Other Outputs
+    "sourceMap": true,
+    "declaration": true,
+    "declarationMap": true,
+
+    // Stricter Typechecking Options
+    "allowImportingTsExtensions": true,
+    "noEmit": true,
+    "noUncheckedIndexedAccess": true,
+    "exactOptionalPropertyTypes": true,
+
+    // Recommended Options
+    "strict": true,
+    "jsx": "react-jsx",
+    "verbatimModuleSyntax": true,
+    "isolatedModules": true,
+    "noUncheckedSideEffectImports": true,
+    "moduleDetection": "force",
+    "skipLibCheck": true,
+  }
+}
 ```

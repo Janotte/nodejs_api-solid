@@ -14,5 +14,4 @@ if (!_env.success) {
   throw new Error("Invalid environment variables.")
 }
 
-
 export const env = _env.data
