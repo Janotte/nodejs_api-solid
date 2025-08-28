@@ -12,7 +12,8 @@
     // Modules
     "baseUrl": "./",
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["./src/*"],
+      "@/env": ["./src/env/index.ts"],
     },
 
     // Stricter Typechecking Options

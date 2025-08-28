@@ -480,4 +480,77 @@ model Gym {
 
 ---
 
-## Criando relacionamentos
+## Criando a rota para registro de usuário
+
+Criar a uma pasta libs na raiz do projeto
+
+```sh
+import { env } from '@/env'
+import { PrismaClient } from '@prisma/client'
+
+export const prisma = new PrismaClient({
+  log: env.NODE_ENV === 'dev' ? ['query'] : [],
+})
+```
+
+Atualizar o arquivo app.ts
+
+```sh
+import fastify from "fastify";
+import { z } from "zod";
+import { prisma } from "./libs/prisma.ts";
+
+export const app = fastify();
+
+app.post('/users', async (request, reply) => {
+  const registerUserBodySchema = z.object({
+    name: z.string(),
+    email: z.string().email(),
+    password: z.string().min(6),
+  })
+
+  const { name, email, password } = registerUserBodySchema.parse(request.body)
+
+  await prisma.user.create({
+    data: {
+      name,
+      email,
+      password_hash: password,
+    },
+  })
+
+  return reply.status(201).send()
+
+})
+```
+
+Atualizar o arquivo tsconfig.json
+
+```sh
+    // Modules
+    "baseUrl": "./",
+    "paths": {
+      "@/*": ["./src/*"],
+      "@/env": ["./src/env/index.ts"],
+    },
+```
+
+```sh
+
+```
+
+```sh
+
+```
+
+```sh
+
+```
+
+```sh
+
+```
+
+```sh
+
+```
