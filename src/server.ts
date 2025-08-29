@@ -6,4 +6,5 @@ app.listen({
   host: "0.0.0.0"
 }).then(() => {
   console.log("🚀 HTTP Server running!");
+  console.log(`http://localhost:${env.PORT}`);
 });

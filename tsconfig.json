@@ -14,6 +14,8 @@
     "paths": {
       "@/*": ["./src/*"],
       "@/env": ["./src/env/index.ts"],
+      "@/repositories/*": ["./src/repositories/*"],
+      "@/use-cases/*": ["./src/use-cases/*"],
     },
 
     // Stricter Typechecking Options
