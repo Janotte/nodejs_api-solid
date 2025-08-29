@@ -535,22 +535,38 @@ Atualizar o arquivo tsconfig.json
     },
 ```
 
-```sh
+## Instalar o bcryptjs
 
+```sh
+npm install bcryptjs
 ```
 
 ```sh
+npm install @types/bcryptjs --save-dev
+```
+## Instalando e configurando o Vitest
 
+Instalar dependências
+```sh
+npm install vitest vite-tsconfig-paths --save-dev
 ```
 
+Configurar o vite.config.ts
 ```sh
+import { defineConfig } from "vitest/config";
+import tsconfigPaths from "vite-tsconfig-paths";
 
+export default defineConfig({
+    plugins: [
+        tsconfigPaths(),
+    ],
+});
 ```
 
+Inserir os scripts de test no package.json
 ```sh
-
-```
-
-```sh
-
+"scripts": {
+  "test": "vitest run",
+  "test:watch": "vitest"
+},
 ```
