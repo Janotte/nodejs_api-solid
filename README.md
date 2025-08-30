@@ -570,3 +570,6 @@ Inserir os scripts de test no package.json
   "test:watch": "vitest"
 },
 ```
+
+
+## Criando testes unitários para registro de usuário
