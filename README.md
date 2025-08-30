@@ -572,7 +572,13 @@ Inserir os scripts de test no package.json
 ```
 
 
-## Criando testes unitários para registro de usuário
+## Configurando a cobertura de testes com Vitest
 ```sh
 npm install @vitest/coverage-v8
 ```
+
+## Instalando Vitest UI
+```sh
+npm install @vitest/ui
+```
+
