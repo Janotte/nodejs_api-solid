@@ -1,6 +1,6 @@
 import { hash } from "bcryptjs";
 import type { UsersRepository } from "@/repositories/users-repository.ts";
-import { UserAlreadyExistsError } from "@/use-cases/erros/user-already-exists-error.ts";
+import { UserAlreadyExistsError } from "@/use-cases/errors/user-already-exists-error.ts";
 
 interface RegisterUseCaseRequest {
   name: string;
