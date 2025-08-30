@@ -4,21 +4,21 @@ import { InvalidCredentialsError } from "./errors/invalid-credentials-error.ts";
 import type { User } from "@prisma/client";
 
 
-interface AuthenticateUserUseCaseRequest {
+interface AuthenticateUseCaseRequest {
   email: string;
   password: string;
 }
-interface AuthenticateUserUseCaseResponse {
+interface AuthenticateUseCaseResponse {
   user: User;
 }
 
-class AuthenticateUserUseCase {
+class AuthenticateUseCase {
   constructor(private usersRepository: UsersRepository) {}
 
   async execute({
     email,
     password,
-  }: AuthenticateUserUseCaseRequest): Promise<AuthenticateUserUseCaseResponse> {
+  }: AuthenticateUseCaseRequest): Promise<AuthenticateUseCaseResponse> {
     
     const user = await this.usersRepository.findByEmail(email);
 
@@ -38,4 +38,4 @@ class AuthenticateUserUseCase {
   }
 }
 
-export { AuthenticateUserUseCase };
+export { AuthenticateUseCase };
