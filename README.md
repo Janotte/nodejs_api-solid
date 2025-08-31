@@ -11,15 +11,15 @@ GymPass style app.
 -   [ ] Deve ser possível que o usuário obtenha seu histórico de check-ins;
 -   [ ] Deve ser possível que o usuário busque academias próximas;
 -   [ ] Deve ser possível que o usuário busque academia pelo nome;
--   [ ] Deve ser possível que o usuário faça check-in em uma academia;
+-   [X] Deve ser possível que o usuário faça check-in em uma academia;
 -   [ ] Deve ser possível validar o check-in de um usuário;
 -   [ ] Deve ser possível cadastrar uma academia;
 
 ## RNs (Regras de negócio)
 
 -   [X] O usuário não pode se cadastrar com um e-mail duplicado;
--   [ ] O usuário não pode fazer check-ins no mesmo dia;
--   [ ] O usuário não pode fazer check-in se não estiver a menos de 100mts da academia;
+-   [X] O usuário não pode fazer check-ins no mesmo dia;
+-   [X] O usuário não pode fazer check-in se não estiver a menos de 100mts da academia;
 -   [ ] O check-in só pode ser validado até 20 minutos após criado;
 -   [ ] O check-in só pode ser validade por administradores;
 -   [ ] A academia só pode ser cadastrada por administradores;
@@ -582,3 +582,7 @@ npm install @vitest/coverage-v8
 npm install @vitest/ui
 ```
 
+## Instalando pacote DayJS
+```sh
+npm install dayjs
+```
