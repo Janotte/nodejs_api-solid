@@ -11,18 +11,18 @@ let gymsRepository: InMemoryGymsRepository;
 let sut: CheckInUseCase;
 
 describe("CheckInUseCase", () => {
-  beforeEach(() => {
+  beforeEach(async () => {
     checkInsRepository = new InMemoryCheckInsRepository();
     gymsRepository = new InMemoryGymsRepository();
     sut = new CheckInUseCase(checkInsRepository, gymsRepository);
 
-    gymsRepository.items.push({
+    await gymsRepository.create({
       id: "gym-1",
       name: "Gym 1",
       description: "Gym 1",
       phone: "1234567890",
-      latitude: new Decimal(-26.2530701),
-      longitude: new Decimal(-48.8498027),
+      latitude: -26.2530701,
+      longitude: -48.8498027,
       created_at: new Date(),
     });
 
