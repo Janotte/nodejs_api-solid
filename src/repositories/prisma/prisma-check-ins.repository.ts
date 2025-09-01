@@ -1,25 +1,67 @@
-
 import { prisma } from "@/libs/prisma.ts";
 import type { CheckIn, Prisma } from "@prisma/client";
 import type { CheckInsRepository } from "../check-ins-repository.ts";
+import dayjs from "dayjs";
 
 export class PrismaCheckInsRepository implements CheckInsRepository {
+  async findById(id: string) {
+    const checkIn = await prisma.checkIn.findUnique({
+      where: {
+        id,
+      },
+    });
 
-  countByUserId(userId: string): Promise<number> {
-    throw new Error("Method not implemented.");
+    return checkIn || null;
   }
 
-  findManyByUserId(userId: string, page: number): Promise<CheckIn[]> {
-    throw new Error("Method not implemented.");
+  async countByUserId(id: string) {
+    const count = await prisma.checkIn.count({
+      where: {
+        id,
+      },
+    });
+
+    return count;
   }
 
-  findByUserIdOnDate(userId: string, date: Date): Promise<CheckIn | null> {
-    throw new Error("Method not implemented.");
+  async findManyByUserId(userId: string, page: number) {
+    const checkIns = await prisma.checkIn.findMany({
+      where: {
+        user_id: userId,
+      },
+      skip: (page - 1) * 20,
+      take: 20,
+    });
+
+    return checkIns;
+  }
+
+  async findByUserIdOnDate(userId: string, date: Date) {
+    const checkIn = await prisma.checkIn.findFirst({
+      where: {
+        user_id: userId,
+        created_at: {
+          gte: dayjs(date).startOf("day").toDate(),
+          lte: dayjs(date).endOf("day").toDate(),
+        },
+      },
+    });
+
+    return checkIn;
   }
 
   async create(data: Prisma.CheckInUncheckedCreateInput) {
     const checkIn = await prisma.checkIn.create({
       data,
+    });
+
+    return checkIn;
+  }
+
+  async save(data: CheckIn) {
+    const checkIn = await prisma.checkIn.update({
+      where: { id: data.id },
+      data: data,
     });
 
     return checkIn;
