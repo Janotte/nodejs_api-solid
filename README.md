@@ -586,3 +586,12 @@ npm install @vitest/ui
 ```sh
 npm install dayjs
 ```
+
+## Instalando o Fastify JWT
+
+```sh
+npm install @fastify/jwt
+```
+
+
+
