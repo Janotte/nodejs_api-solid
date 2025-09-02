@@ -593,5 +593,11 @@ npm install dayjs
 npm install @fastify/jwt
 ```
 
+## Instalando Supertest
+
+```sh
+npm install supertest @types/supertest --save-dev
+```
+
 
 
