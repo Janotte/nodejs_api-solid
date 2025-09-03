@@ -10,24 +10,12 @@ export async function checkInsRoutes(app: FastifyInstance) {
   app.addHook("onRequest", verifyJWT);
 
   // Authenticated
-  app.post(
-    "/gyms/:gymId/check-ins",
-    { onRequest: [verifyUserRole("MEMBER")] },
-    create
-  );
+  app.post("/gyms/:gymId/check-ins", create);
   app.patch(
     "/check-ins/:checkInId/validate",
     { onRequest: [verifyUserRole("ADMIN")] },
     validate
   );
-  app.get(
-    "/check-ins/history",
-    { onRequest: [verifyUserRole("MEMBER")] },
-    history
-  );
-  app.get(
-    "/check-ins/metrics",
-    { onRequest: [verifyUserRole("MEMBER")] },
-    metrics
-  );
+  app.get("/check-ins/history", history);
+  app.get("/check-ins/metrics", metrics);
 }
