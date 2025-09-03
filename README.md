@@ -590,7 +590,7 @@ npm install dayjs
 ## Instalando o Fastify JWT
 
 ```sh
-npm install @fastify/jwt
+npm install @fastify/jwt @fastify/cookie
 ```
 
 ## Instalando Supertest
