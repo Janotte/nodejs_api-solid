@@ -4,22 +4,14 @@ import { makeFetchNearbyGymsUseCase } from "@/use-cases/factories/make-fetch-nea
 
 export async function nearby(request: FastifyRequest, reply: FastifyReply) {
   const nearbyGymsQuerySchema = z.object({
-    latitude: z.number().refine(
+    latitude: z.coerce.number().refine(
       (value) => {
-        return value >= -90 && value <= 90;
-      },
-      {
-        message: "Latitude must be between -90 and 90",
-      }
-    ),
-    longitude: z.number().refine(
+        return Math.abs(value) <= 90;
+      }),
+    longitude: z.coerce.number().refine(
       (value) => {
-        return value >= -180 && value <= 180;
-      },
-      {
-        message: "Longitude must be between -180 and 180",
-      }
-    ),
+        return Math.abs(value) <= 180;
+      }),
   });
 
   const { latitude, longitude } = nearbyGymsQuerySchema.parse(request.query);

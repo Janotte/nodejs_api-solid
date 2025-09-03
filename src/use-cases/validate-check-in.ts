@@ -35,7 +35,7 @@ export class ValidateCheckInUseCase {
       throw new LateCheckInValidationError();
     }
 
-    checkIn.validate_at = new Date();
+    checkIn.validated_at = new Date();
 
     await this.checkInsRepository.save(checkIn);
 

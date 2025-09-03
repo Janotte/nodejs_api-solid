@@ -19,7 +19,7 @@ describe("Validate Check In Use Case", () => {
     const createdCheckIn = await checkInsRepository.create({
       gym_id: "gym-01",
       user_id: "user-01",
-      validate_at: null,
+      validated_at: null,
       created_at: new Date(),
     });
 
@@ -27,7 +27,7 @@ describe("Validate Check In Use Case", () => {
 
     const checkIn = await checkInsRepository.findById(createdCheckIn.id);
 
-    expect(checkIn?.validate_at).toEqual(expect.any(Date));
+    expect(checkIn?.validated_at).toEqual(expect.any(Date));
   });
 
   it("should not be able to validate an inexistent check in", async () => {
@@ -42,7 +42,7 @@ describe("Validate Check In Use Case", () => {
     const createdCheckIn = await checkInsRepository.create({
       gym_id: "gym-01",
       user_id: "user-01",
-      validate_at: null,
+      validated_at: null,
       created_at: new Date(),
     });
 

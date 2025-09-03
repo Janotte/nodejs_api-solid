@@ -60,7 +60,7 @@ class InMemoryCheckInsRepository implements CheckInsRepository {
       gym_id: data.gym_id,
       user_id: data.user_id,
       created_at: new Date(),
-      validate_at: data.validate_at ? new Date(data.validate_at) : null,
+      validated_at: data.validated_at ? new Date(data.validated_at) : null,
     };
 
     this.items.push(checkIn);
