@@ -4,6 +4,6 @@ services:
     ports:
       - 5432:5432
     environment:
-      - POSTGRES_USER=docker
+      - POSTGRES_USERNAME=docker
       - POSTGRES_PASSWORD=docker
-      - POSTGRES_DB=apisolid
+      - POSTGRES_DATABASE=apisolid
