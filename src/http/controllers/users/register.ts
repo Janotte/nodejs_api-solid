@@ -1,16 +1,28 @@
 import type { FastifyReply, FastifyRequest } from "fastify";
-import z from "zod";
 import { UserAlreadyExistsError } from "@/use-cases/errors/user-already-exists-error.ts";
 import { makeRegisterUseCase } from "@/use-cases/factories/make-register-use-case.ts";
+import { RegisterUserDTO } from "@/http/dtos/index.ts";
 
+/**
+ * HTTP controller for user registration
+ * 
+ * Handles POST /users requests to create new user accounts.
+ * Validates request data and delegates business logic to the RegisterUseCase.
+ * 
+ * @param request - Fastify request object containing user data
+ * @param reply - Fastify reply object for sending response
+ * @returns Promise resolving to HTTP response
+ * 
+ * @example
+ * ```typescript
+ * // POST /users
+ * // Body: { "name": "John Doe", "email": "john@example.com", "password": "123456" }
+ * // Response: 201 Created
+ * ```
+ */
 export async function register(request: FastifyRequest, reply: FastifyReply) {
-  const registerUserBodySchema = z.object({
-    name: z.string(),
-    email: z.string().email(),
-    password: z.string().min(6),
-  });
-
-  const { name, email, password } = registerUserBodySchema.parse(request.body);
+  const registerUserDTO = new RegisterUserDTO();
+  const { name, email, password } = registerUserDTO.parse(request.body);
 
   try {
     const registerUseCase = makeRegisterUseCase();

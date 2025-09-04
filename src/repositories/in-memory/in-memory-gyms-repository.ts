@@ -3,7 +3,7 @@ import type { FetchNearbyParams, GymsRepository } from "../gyms-repository.ts";
 import { randomUUID } from "node:crypto";
 import { getDistanceBetweenCoordinates } from "@/utils/get-distance-between-coordinates.ts";
 
-class InMemoryGymsRepository implements GymsRepository {
+export class InMemoryGymsRepository implements GymsRepository {
   public items: Gym[] = [];
 
   async findManyNearby(params: FetchNearbyParams): Promise<Gym[]> {
@@ -52,4 +52,4 @@ class InMemoryGymsRepository implements GymsRepository {
   }
 }
 
-export { InMemoryGymsRepository };
+

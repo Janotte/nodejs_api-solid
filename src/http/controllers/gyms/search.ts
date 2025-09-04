@@ -1,19 +1,15 @@
 import type { FastifyReply, FastifyRequest } from "fastify";
-import z from "zod";
 import { makeSearchGymsUseCase } from "@/use-cases/factories/make-search-gyms-use-case.ts";
+import { SearchGymsDTO } from "@/http/dtos/index.ts";
 
 export async function search(request: FastifyRequest, reply: FastifyReply) {
-  const searchGymQuerySchema = z.object({
-    query: z.string(),
-    page: z.coerce.number().min(1).default(1),
-  });
-
-  const { query, page } = searchGymQuerySchema.parse(request.query);
+  const searchGymsDTO = new SearchGymsDTO();
+  const { query, page } = searchGymsDTO.parse(request.query);
 
   const searchGymsUseCase = makeSearchGymsUseCase();
   const { gyms } = await searchGymsUseCase.execute({
     query,
-    page,
+    page: page || 1,
   });
 
   return reply.status(200).send({ gyms });

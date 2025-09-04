@@ -1,5 +1,5 @@
 import "dotenv/config";
-import { prisma } from "@/libs/prisma.ts";
+import { prisma } from "@/lib/prisma.ts";
 import { execSync } from "node:child_process";
 import { randomUUID } from "node:crypto";
 import type { Environment } from "vitest/environments";

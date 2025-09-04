@@ -2,6 +2,7 @@ import type { CheckIn } from "@prisma/client";
 import type { CheckInsRepository } from "@/repositories/check-ins-repository.ts";
 import { ResourceNotFoundError } from "./errors/resource-not-found-error.ts";
 import { LateCheckInValidationError } from "./errors/late-check-validation-error.ts";
+import { BUSINESS_RULES } from "@/config/constants.ts";
 import dayjs from "dayjs";
 
 interface ValidateCheckInUseCaseRequest {
@@ -28,10 +29,8 @@ export class ValidateCheckInUseCase {
       checkIn.created_at,
       "minutes"
     );
-    
-    const MAX_MINUTES_DIFFERENCE = 20;
 
-    if (differenceInMinutes > MAX_MINUTES_DIFFERENCE) {
+    if (differenceInMinutes > BUSINESS_RULES.MAX_CHECK_IN_VALIDATION_MINUTES) {
       throw new LateCheckInValidationError();
     }
 

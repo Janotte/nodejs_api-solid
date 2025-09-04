@@ -19,7 +19,7 @@ describe("Nearby Gym (e2e)", () => {
       .post("/gyms")
       .set("Authorization", `Bearer ${token}`)
       .send({
-        name: "OVJ Fit Academia",
+        title: "OVJ Fit Academia",
         description: "Mais saude, cuidando do seu corpo e mente.",
         phone: "047996106938",
         latitude: -26.3588623,
@@ -30,7 +30,7 @@ describe("Nearby Gym (e2e)", () => {
       .post("/gyms")
       .set("Authorization", `Bearer ${token}`)
       .send({
-        name: "Uplay Garten Joinville",
+        title: "Uplay Garten Joinville",
         description: "Crie o seu estilo de vida",
         phone: "04730439436",
         latitude: -26.2537935,

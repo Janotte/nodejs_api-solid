@@ -1,18 +1,16 @@
 import type { FastifyReply, FastifyRequest } from "fastify";
-import { z } from "zod";
 import { InvalidCredentialsError } from "@/use-cases/errors/invalid-credentials-error.ts";
 import { makeAuthenticateUseCase } from "@/use-cases/factories/make-authenticate-use-case.ts";
+import { AUTH_CONFIG } from "@/config/constants.ts";
+import { AuthenticateUserDTO } from "@/http/dtos/index.ts";
+import type { CookieSerializeOptions } from "@fastify/cookie";
 
 export async function authenticate(
   request: FastifyRequest,
   reply: FastifyReply
 ) {
-  const authenticateBodySchema = z.object({
-    email: z.string().email(),
-    password: z.string().min(6),
-  });
-
-  const { email, password } = authenticateBodySchema.parse(request.body);
+  const authenticateUserDTO = new AuthenticateUserDTO();
+  const { email, password } = authenticateUserDTO.parse(request.body);
 
   try {
     const authenticateUseCase = makeAuthenticateUseCase();
@@ -37,19 +35,14 @@ export async function authenticate(
       {
         sign: {
           sub: user.id,
-          expiresIn: "1d",
+          expiresIn: AUTH_CONFIG.REFRESH_TOKEN_EXPIRES_IN,
         },
       }
     );
 
     return reply
       .status(200)
-      .setCookie("refreshToken", refreshToken, {
-        path: "/",
-        secure: true,
-        sameSite: true,
-        httpOnly: true,
-      })
+      .setCookie("refreshToken", refreshToken, AUTH_CONFIG.COOKIE_CONFIG as CookieSerializeOptions)
       .send({ token });
   } catch (error) {
     if (error instanceof InvalidCredentialsError) {

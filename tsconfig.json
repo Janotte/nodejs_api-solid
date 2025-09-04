@@ -16,6 +16,9 @@
       "@/env": ["./src/env/index.ts"],
       "@/repositories/*": ["./src/repositories/*"],
       "@/use-cases/*": ["./src/use-cases/*"],
+      "@/config/*": ["./src/config/*"],
+      "@/lib/*": ["./src/lib/*"],
+      "@/http/dtos": ["./src/http/dtos/index.ts"],
     },
 
     // Stricter Typechecking Options

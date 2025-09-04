@@ -1,38 +1,17 @@
 import type { FastifyReply, FastifyRequest } from "fastify";
-import z from "zod";
 import { makeCreateGymUseCase } from "@/use-cases/factories/make-create-gym-use-case.ts";
+import { CreateGymDTO } from "@/http/dtos/index.ts";
 
 export async function create(request: FastifyRequest, reply: FastifyReply) {
-  const createGymBodySchema = z.object({
-    name: z.string(),
-    description: z.string().nullable(),
-    phone: z.string().nullable(),
-    latitude: z.number().refine(
-      (value) => {
-        return value >= -90 && value <= 90;
-      },
-      {
-        message: "Latitude must be between -90 and 90",
-      }
-    ),
-    longitude: z.number().refine(
-      (value) => {
-        return value >= -180 && value <= 180;
-      },
-      {
-        message: "Longitude must be between -180 and 180",
-      }
-    ),
-  });
-
-  const { name, description, phone, latitude, longitude } =
-    createGymBodySchema.parse(request.body);
+  const createGymDTO = new CreateGymDTO();
+  const { title, description, phone, latitude, longitude } =
+    createGymDTO.parse(request.body);
 
   const createGymUseCase = makeCreateGymUseCase();
   await createGymUseCase.execute({
-    name,
-    description,
-    phone,
+    title,
+    description: description || null,
+    phone: phone || null,
     latitude,
     longitude,
   });

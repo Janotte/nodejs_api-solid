@@ -1,33 +1,13 @@
 import type { FastifyReply, FastifyRequest } from "fastify";
-import z from "zod";
 import { makeCheckInUseCase } from "@/use-cases/factories/make-check-in-use-case.ts";
+import { CheckInGymIdDTO, CreateCheckInDTO } from "@/http/dtos/index.ts";
 
 export async function create(request: FastifyRequest, reply: FastifyReply) {
-  const createCheckInParamsSchema = z.object({
-    gymId: z.string(),
-  });
+  const checkInGymIdDTO = new CheckInGymIdDTO();
+  const createCheckInDTO = new CreateCheckInDTO();
 
-  const createCheckInBodySchema = z.object({
-    latitude: z.number().refine(
-      (value) => {
-        return value >= -90 && value <= 90;
-      },
-      {
-        message: "Latitude must be between -90 and 90",
-      }
-    ),
-    longitude: z.number().refine(
-      (value) => {
-        return value >= -180 && value <= 180;
-      },
-      {
-        message: "Longitude must be between -180 and 180",
-      }
-    ),
-  });
-
-  const { gymId } = createCheckInParamsSchema.parse(request.params);
-  const { latitude, longitude } = createCheckInBodySchema.parse(request.body);
+  const { gymId } = checkInGymIdDTO.parse(request.params);
+  const { latitude, longitude } = createCheckInDTO.parse(request.body);
 
   const createCheckInUseCase = makeCheckInUseCase();
   await createCheckInUseCase.execute({

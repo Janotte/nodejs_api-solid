@@ -1,4 +1,4 @@
-import { prisma } from "@/libs/prisma.ts";
+import { prisma } from "@/lib/prisma.ts";
 import type { Prisma } from "@prisma/client";
 import type { UsersRepository } from "../users-repository.ts";
 

@@ -1,5 +1,5 @@
 import request from "supertest";
-import { prisma } from "@/libs/prisma.ts";
+import { prisma } from "@/lib/prisma.ts";
 import { afterAll, beforeAll, describe, expect, it } from "vitest";
 import { app } from "@/app.ts";
 import { createAndAuthenticateUser } from "@/utils/create-and-authenticate-user.ts";

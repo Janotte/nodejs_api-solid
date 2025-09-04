@@ -1,6 +1,6 @@
 import request from "supertest";
 import type { FastifyInstance } from "fastify";
-import { prisma } from "@/libs/prisma.ts";
+import { prisma } from "@/lib/prisma.ts";
 import { hash } from "bcryptjs";
 
 export async function createAndAuthenticateUser(

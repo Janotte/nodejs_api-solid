@@ -1,8 +1,9 @@
 import fastify from "fastify";
 import fastifyJwt from "@fastify/jwt";
 import fastifyCookie from "@fastify/cookie";
-import { ZodError } from "zod";
 import { env } from "@/env";
+import { AUTH_CONFIG } from "@/config/constants.ts";
+import { errorHandler } from "./http/middlewares/error-handler.ts";
 import { usersRoutes } from "./http/controllers/users/routes.ts";
 import { gymsRoutes } from "./http/controllers/gyms/routes.ts";
 import { checkInsRoutes } from "./http/controllers/check-ins/routes.ts";
@@ -16,7 +17,7 @@ app.register(fastifyJwt, {
     signed: false,
   },
   sign: {
-    expiresIn: "10m",
+    expiresIn: AUTH_CONFIG.JWT_EXPIRES_IN,
   },
 });
 
@@ -26,16 +27,4 @@ app.register(usersRoutes);
 app.register(gymsRoutes);
 app.register(checkInsRoutes);
 
-app.setErrorHandler((error, _, reply) => {
-  if (error instanceof ZodError) {
-    return reply
-      .status(400)
-      .send({ message: "Validation error.", issues: error.format() });
-  }
-
-  if (env.NODE_ENV !== "prod") {
-    console.error(error);
-  }
-
-  return reply.status(500).send({ message: "Internal server error." });
-});
+app.setErrorHandler(errorHandler);

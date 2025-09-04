@@ -1,4 +1,4 @@
-import { prisma } from "@/libs/prisma.ts";
+import { prisma } from "@/lib/prisma.ts";
 import type { Gym, Prisma } from "@prisma/client";
 import type { FetchNearbyParams, GymsRepository } from "../gyms-repository.ts";
 

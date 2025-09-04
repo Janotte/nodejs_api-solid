@@ -3,7 +3,7 @@ import { randomUUID } from "node:crypto";
 import type { CheckInsRepository } from "../check-ins-repository.ts";
 import dayjs from "dayjs";
 
-class InMemoryCheckInsRepository implements CheckInsRepository {
+export class InMemoryCheckInsRepository implements CheckInsRepository {
   public items: CheckIn[] = [];
 
   async save(checkIn: CheckIn): Promise<CheckIn> {
@@ -69,4 +69,4 @@ class InMemoryCheckInsRepository implements CheckInsRepository {
   }
 }
 
-export { InMemoryCheckInsRepository };
+
